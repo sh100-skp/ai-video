@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planet Live</title>
+  <meta name="description" content="우리 회사의 지식과 경험을 나누는 공간">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111'/%3E%3Cpath d='M12 9l12 7-12 7z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="head-row">
+        <div class="brand">
+          <h1>Planet Live</h1>
+          <p>우리 회사의 지식과 경험을 나누는 공간</p>
+        </div>
+        <form class="search" role="search" id="searchForm">
+          <input id="q" type="search" placeholder="강의 제목 또는 강사명 검색" aria-label="강의 검색" autocomplete="off">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        </form>
+        <a class="admin-link" href="/admin">관리자</a>
+      </div>
+      <nav class="chips" id="chips" aria-label="카테고리"></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <div class="section-head">
+        <h2 id="listTitle">전체 강의<span class="count" id="count"></span></h2>
+        <select class="sort" id="sort" aria-label="정렬">
+          <option value="latest">최신 등록순</option>
+          <option value="oldest">오래된 순</option>
+        </select>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="empty hidden" id="empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg>
+        <h3 id="emptyTitle"></h3>
+        <p id="emptyText"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="wrap">Planet Live · 사내 구성원 전용 학습 공간</div></footer>
+  <script src="/app.js"></script>
+</body>
+</html>

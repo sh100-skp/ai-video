@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>관리자 · Planet Live</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111'/%3E%3Cpath d='M12 9l12 7-12 7z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+  <!-- 로그인 -->
+  <section id="loginView" class="login hidden">
+    <form id="loginForm" class="login-box">
+      <h1>Planet Live 관리자</h1>
+      <p>관리자 비밀번호를 입력해 주세요.</p>
+      <input id="password" type="password" autocomplete="current-password" placeholder="비밀번호" required autofocus>
+      <p class="err" id="loginErr" role="alert"></p>
+      <button class="btn primary" type="submit">로그인</button>
+      <a class="back" href="/">← 강의 목록으로</a>
+    </form>
+  </section>
+
+  <!-- 관리 화면 -->
+  <div id="appView" class="hidden">
+    <header class="site-header">
+      <div class="wrap head-row">
+        <div class="brand"><h1>Planet Live <span class="tag">관리자</span></h1></div>
+        <div class="spacer"></div>
+        <a class="admin-link" href="/" target="_blank" rel="noopener">구성원 화면 보기</a>
+        <button class="admin-link" id="logoutBtn" type="button">로그아웃</button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="toolbar">
+        <h2>강의 관리 <span class="count" id="total"></span></h2>
+        <div class="actions">
+          <button class="btn" id="catBtn" type="button">카테고리 관리</button>
+          <button class="btn primary" id="newBtn" type="button">+ 신규 등록</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>썸네일</th><th>강의 제목</th><th>강사명</th><th>카테고리</th><th>공개</th><th>등록일</th><th>관리</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty hidden" id="emptyRows"><h3>등록된 강의가 없습니다</h3><p>오른쪽 위의 “신규 등록” 버튼으로 첫 강의를 등록해 보세요.</p></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 강의 등록/수정 -->
+  <dialog id="lectureDialog">
+    <form id="lectureForm" method="dialog">
+      <h2 id="dialogTitle">강의 등록</h2>
+      <label><span>강의 제목 <em>필수</em></span><input id="fTitle" maxlength="120" required></label>
+      <label><span>영상 URL <em>필수</em></span><input id="fUrl" type="url" placeholder="https://" required>
+        <small>구성원이 카드를 클릭하면 이 주소가 새 창으로 열립니다. (유튜브, 사내 영상 사이트 등)</small></label>
+      <div class="row">
+        <label><span>강사명 <em>필수</em></span><input id="fInstructor" maxlength="50" required></label>
+        <label><span>카테고리 <em>필수</em></span><select id="fCategory" required></select></label>
+      </div>
+      <div class="newcat">
+        <input id="fNewCat" maxlength="30" placeholder="목록에 없다면 새 카테고리 이름 입력">
+        <button class="btn" id="addCatInline" type="button">카테고리 추가</button>
+      </div>
+      <label><span>썸네일 이미지</span>
+        <input id="fThumb" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+        <small>권장 비율 16:9 (예: 1280×720). 업로드하면 자동으로 크기가 조정됩니다.</small></label>
+      <div class="thumb-preview hidden" id="thumbPreview">
+        <img id="thumbImg" alt="썸네일 미리보기">
+        <button class="btn small" id="thumbRemove" type="button">이미지 제거</button>
+      </div>
+      <label><span>강의 소개</span><textarea id="fDesc" rows="3" maxlength="2000"></textarea></label>
+      <div class="checks">
+        <label class="check"><input type="checkbox" id="fPublic" checked> 공개 (체크 해제 시 구성원에게 보이지 않음)</label>      </div>
+      <p class="hint" id="dateHint">등록일은 저장하는 시점으로 자동 입력됩니다.</p>
+      <p class="err" id="formErr" role="alert"></p>
+      <div class="dialog-actions">
+        <button class="btn" id="cancelBtn" type="button">취소</button>
+        <button class="btn primary" type="submit" id="saveBtn">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 카테고리 관리 -->
+  <dialog id="catDialog">
+    <div class="catbox">
+      <h2>카테고리 관리</h2>
+      <ul id="catList"></ul>
+      <form id="catForm" class="newcat">
+        <input id="catName" maxlength="30" placeholder="새 카테고리 이름" required>
+        <button class="btn primary" type="submit">추가</button>
+      </form>
+      <p class="err" id="catErr" role="alert"></p>
+      <div class="dialog-actions"><button class="btn" id="catClose" type="button">닫기</button></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/admin.js"></script>
+</body>
+</html>

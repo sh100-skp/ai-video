@@ -1,0 +1,12 @@
+{
+  "name": "planet-live",
+  "version": "1.0.0",
+  "description": "Planet Live - 사내 강의 영상 라이브러리",
+  "main": "server.js",
+  "private": true,
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/"
+  }
+}
